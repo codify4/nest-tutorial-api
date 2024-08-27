@@ -10,6 +10,7 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
   private readonly logger = new MyLoggerService(EmployeesController.name);
 
+  @Throttle({ long: { ttl: 60000, limit: 100 }})
   @Post()
   create(@Body() createEmployeeDto: Prisma.EmployeeCreateInput) {
     return this.employeesService.create(createEmployeeDto);
